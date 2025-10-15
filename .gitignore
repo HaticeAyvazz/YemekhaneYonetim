@@ -1,0 +1,27 @@
+# === Maven/Gradle build klasörleri ===
+target/
+build/
+
+# === IDE dosyaları ===
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.class
+
+# === OS dosyaları ===
+.DS_Store
+Thumbs.db
+
+# === Logs ===
+*.log
+
+# === Environment / Credentials ===
+application.properties
+application.yml
+.env
+
+# === Temporary files ===
+*.tmp
+*.bak
