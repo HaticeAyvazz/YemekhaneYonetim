@@ -25,3 +25,8 @@ application.yml
 # === Temporary files ===
 *.tmp
 *.bak
+
+# === Maven Wrapper
+mvnw
+mvnw.cmd
+.mvn/
