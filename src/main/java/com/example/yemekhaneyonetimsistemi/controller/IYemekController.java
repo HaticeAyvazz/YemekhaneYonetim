@@ -1,4 +1,4 @@
-package com.example.yemekhaneyonetimsistemi.Controller;
+package com.example.yemekhaneyonetimsistemi.controller;
 
 import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 

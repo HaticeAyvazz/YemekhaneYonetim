@@ -1,6 +1,6 @@
-package com.example.yemekhaneyonetimsistemi.Controller.Impl;
+package com.example.yemekhaneyonetimsistemi.controller.ımpl;
 
-import com.example.yemekhaneyonetimsistemi.Controller.IYemekController;
+import com.example.yemekhaneyonetimsistemi.controller.IYemekController;
 import com.example.yemekhaneyonetimsistemi.Service.IYemekService;
 import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 import org.springframework.beans.factory.annotation.Autowired;

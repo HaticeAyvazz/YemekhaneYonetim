@@ -3,6 +3,7 @@ package com.example.yemekhaneyonetimsistemi.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "menu")
@@ -21,6 +22,16 @@ public class Menu {
 
     @Column(name = "guncellemetarihi")
     private LocalDate guncellenmeTarihi;
+
+
+    // YENİ İLİŞKİ: Menu'nün içinde Yemekler Listesi
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "menu_yemek", // JPA'nın arka planda oluşturacağı tablonun adı
+            joinColumns = @JoinColumn(name = "menu_id"), // Menu tablosu tarafındaki sütun
+            inverseJoinColumns = @JoinColumn(name = "yemek_id") // Yemek tablosu tarafındaki sütun
+    )
+    private List<Yemek> yemekler;
 
     public int getMenuId() {
         return menuId;
@@ -54,4 +65,11 @@ public class Menu {
         this.guncellenmeTarihi = guncellenmeTarihi;
     }
 
+    public List<Yemek> getYemekler() {
+        return yemekler;
+    }
+
+    public void setYemekler(List<Yemek> yemekler) {
+        this.yemekler = yemekler;
+    }
 }
