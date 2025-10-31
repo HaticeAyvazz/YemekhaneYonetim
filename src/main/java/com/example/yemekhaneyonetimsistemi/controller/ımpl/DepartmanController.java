@@ -27,6 +27,7 @@ public class DepartmanController implements IDepartmanController {
     public Departman insertDepartman(@RequestBody Departman departman) {
         return iDepartmanService.insertDepartman(departman);
     }
+
     @DeleteMapping("/delete/{id}")
     @Override
     public Departman deleteDepartman(@PathVariable(name = "id") int id) {
