@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
-import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
+import com.example.yemekhaneyonetimsistemi.repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IOgrenciService;
 import com.example.yemekhaneyonetimsistemi.entity.Kategori;
 import com.example.yemekhaneyonetimsistemi.entity.Ogrenci;

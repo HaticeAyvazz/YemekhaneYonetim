@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
-import com.example.yemekhaneyonetimsistemi.Repository.IDepartmanRepository;
+import com.example.yemekhaneyonetimsistemi.repository.IDepartmanRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IDepartmanService;
 import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import org.springframework.beans.factory.annotation.Autowired;

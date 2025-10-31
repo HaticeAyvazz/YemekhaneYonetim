@@ -13,7 +13,7 @@ public class FakulteController implements IFakulteController {
 
     @Autowired
     IFakulteService fakulteService;
-    @GetMapping("/GetAll")
+    @GetMapping("/getAll")
     @Override
     public List<Fakulte> getAllFakulte() {
         return fakulteService.getAllFakulte();
