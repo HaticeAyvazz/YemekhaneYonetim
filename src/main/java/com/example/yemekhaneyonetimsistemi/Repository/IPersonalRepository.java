@@ -1,4 +1,4 @@
-package com.example.yemekhaneyonetimsistemi.repository;
+package com.example.yemekhaneyonetimsistemi.Repository;
 
 import com.example.yemekhaneyonetimsistemi.entity.Personel;
 import org.springframework.data.jpa.repository.JpaRepository;

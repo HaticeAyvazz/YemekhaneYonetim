@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class BolumService implements IBolumService {
-    @Autowired
-    IBolumRepository bolumRepository;
 
+    private IBolumRepository bolumRepository;
+
+    public BolumService(IBolumRepository bolumRepository) {
+        this.bolumRepository = bolumRepository;
+    }
     @Override
     public List<Bolum> getAllBolum() {
-        return bolumRepository.findAll();
+        return bolumRepository.getAll();
     }
 
     @Override
@@ -37,7 +40,7 @@ public class BolumService implements IBolumService {
     public Bolum deleteBolum(int id) {
         var bolum1 = bolumRepository.findById(id).orElse(null);
         if(bolum1 != null) {
-            bolumRepository.delete(bolum1);
+            bolumRepository.deleteById(id);
             return bolum1;
         }
         return null;
