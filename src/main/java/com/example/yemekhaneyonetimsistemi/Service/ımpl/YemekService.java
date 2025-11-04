@@ -15,7 +15,7 @@ public class YemekService implements IYemekService {
     IYemekRepository iYemekRepository;
     @Override
     public List<Yemek> getAllYemek() {
-        return iYemekRepository.findAll();
+        return iYemekRepository.getAll();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class YemekService implements IYemekService {
         if(yemok==null) {
             return null;
         }
-        iYemekRepository.delete(yemok);
+        iYemekRepository.deleteById(id);
         return yemok;
     }
 }

@@ -1,16 +1,20 @@
-package com.example.yemekhaneyonetimsistemi.repository;
+package com.example.yemekhaneyonetimsistemi.Repository;
 
 import com.example.yemekhaneyonetimsistemi.entity.Menu;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface IMenuRepository extends JpaRepository<Menu,Integer> {
 
-    List<Menu> findByTarih(LocalDate tarih);
+public interface IMenuRepository {
+    List<Menu>getAll();
+
+    Menu save(Menu menu);
+
+    void deleteById(Integer id);
+
+    Optional<Menu> findById(Integer id);
 
 
 }

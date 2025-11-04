@@ -4,7 +4,19 @@ import com.example.yemekhaneyonetimsistemi.entity.Personel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface IPersonalRepository extends JpaRepository<Personel,Integer> {
+import java.util.List;
+import java.util.Optional;
+
+
+public interface IPersonalRepository{
+
+    List<Personel> getAll();
+
+    Personel save(Personel personel);
+
+    void deleteById(Integer id);
+
+    Optional<Personel> findById(Integer id);
+
 
 }

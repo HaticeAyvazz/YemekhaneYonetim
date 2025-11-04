@@ -40,7 +40,7 @@ public class MenuController implements IMenuController {
         menuService.deleteMenu(menuId);
     }
 
-
+/*
     @DeleteMapping("/delete/{menuId}/yemekler")
     @Override
     public ResponseEntity<Menu> deleteFoodFromMenu(@PathVariable Integer menuId, @RequestBody List<Integer> yemekIds) {
@@ -48,7 +48,7 @@ public class MenuController implements IMenuController {
 
         return ResponseEntity.ok(updatedMenuFood);
     }
-
+*/
     @PutMapping("/update/{menuId}")
     @Override
     public Menu updateMenu(@PathVariable Integer menuId,@RequestBody List<Integer> yemekIdsList) {

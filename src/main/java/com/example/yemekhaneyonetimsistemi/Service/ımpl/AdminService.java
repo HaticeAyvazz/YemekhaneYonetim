@@ -3,6 +3,7 @@ package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 import com.example.yemekhaneyonetimsistemi.Service.IAdminService;
 import com.example.yemekhaneyonetimsistemi.entity.Admin;
 import com.example.yemekhaneyonetimsistemi.Repository.IAdminRepository;
+import com.example.yemekhaneyonetimsistemi.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class AdminService implements IAdminService {
     @Override
     public Admin updateAdmin(Admin adminDetails, int id) {
         Admin admin=adminRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Admin id not found"));
+                .orElseThrow(()->new ResourceNotFoundException("Admin",+id));
 
         if(adminDetails.getKullaniciAdi()!=null){
             admin.setKullaniciAdi(adminDetails.getKullaniciAdi());

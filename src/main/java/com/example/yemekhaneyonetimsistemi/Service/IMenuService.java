@@ -15,7 +15,7 @@ public interface IMenuService {
     void deleteMenu(Integer menuId);
 
     //Menüde seçili olan yemekleri silme
-     Menu deleteFoodFromMenu(Integer menuId,List<Integer>yemekIds);
+   //  Menu deleteFoodFromMenu(Integer menuId,List<Integer>yemekIds);
 
      //Menü içindeki yemekleri günceller
      Menu updateMenu(Integer menuId,List<Integer> yemekIdsList);

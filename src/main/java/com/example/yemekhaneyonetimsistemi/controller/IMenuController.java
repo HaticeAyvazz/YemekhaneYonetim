@@ -13,7 +13,7 @@ public interface IMenuController {
 
      void deleteAllMenu(Integer menuId);
 
-    ResponseEntity<Menu>deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds);
+  //  ResponseEntity<Menu>deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds);
 
     Menu updateMenu(Integer menuId,List<Integer> yemekIdsList);
 

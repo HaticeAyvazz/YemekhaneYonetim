@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
-import com.example.yemekhaneyonetimsistemi.repository.IOgrenciRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IOgrenciService;
 import com.example.yemekhaneyonetimsistemi.entity.Kategori;
 import com.example.yemekhaneyonetimsistemi.entity.Ogrenci;
@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class OgrenciService implements IOgrenciService {
+
     @Autowired
     IOgrenciRepository repository;
+
     @Override
     public List<Ogrenci> getAllOgrenci() {
-        return repository.findAll();
+        return repository.getAll();
     }
 
     @Override
@@ -44,7 +46,7 @@ public class OgrenciService implements IOgrenciService {
         if(ogrenci==null) {
             return null;
         }
-        repository.delete(ogrenci);
+        repository.deleteById(id);
         return ogrenci;
     }
 }

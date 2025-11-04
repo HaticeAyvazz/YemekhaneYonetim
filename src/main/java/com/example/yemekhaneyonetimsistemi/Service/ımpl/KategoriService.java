@@ -15,17 +15,19 @@ public class KategoriService implements IKategoriService {
 
     @Override
     public List<Kategori> getAllKategori() {
-        return repository.findAll();
+        return repository.getAll();
     }
+
 
     @Override
     public Kategori updateKategori(int id, Kategori kategori) {
         // ID'ye göre var olan kategori
         Kategori kategorii = repository.findById(id).orElse(null);
+
         if (kategorii != null && kategori != null) {
-            kategorii.setKategoriAd(kategori.getKategoriAd());
+            kategorii.setKategoriAd(kategori.getKategoriAd()); // kategorii.setKategoriAd(null) çağrılır!
             kategorii.setTip(kategori.getTip());
-            return repository.save(kategorii);  // burası önemli
+            return repository.save(kategorii);
         }
         return null;
     }
