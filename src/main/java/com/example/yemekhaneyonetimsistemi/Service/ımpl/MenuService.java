@@ -3,7 +3,8 @@ package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 import com.example.yemekhaneyonetimsistemi.Service.IMenuService;
 import com.example.yemekhaneyonetimsistemi.entity.Menu;
 import com.example.yemekhaneyonetimsistemi.entity.Yemek;
-import com.example.yemekhaneyonetimsistemi.repository.IMenuRepository;
+import com.example.yemekhaneyonetimsistemi.exception.ResourceNotFoundException;
+import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IYemekRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +28,18 @@ public class MenuService implements IMenuService {
 
     @Override
     public List<Menu> getMenuList() {
-        return menuRepository.findAll();
+        return menuRepository.getAll();
     }
 
 
     @Override
     public Menu createMenu(Integer menuId, List<Integer> yemekIds) {
         Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new RuntimeException("Menu not found"));
+                .orElseThrow(() -> new RuntimeException("Menu Not Found"));
 
         List<Yemek> eklenecekYemekler = yemekIds.stream()
                 .map(yemekId -> yemekRepository.findById(yemekId)
-                        .orElseThrow(() -> new RuntimeException("Yemek not found with ID: " + yemekId)))
+                        .orElseThrow(() -> new RuntimeException("Yemek Not Found")))
                 .collect(Collectors.toList());
 
         menu.getYemekler().addAll(eklenecekYemekler);
@@ -47,12 +48,13 @@ public class MenuService implements IMenuService {
     }
 
 
+
     @Override
     public void deleteMenu(Integer menuId) {
         menuRepository.deleteById(menuId);
     }
 
-
+/*
     @Override
     public Menu deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds) {
         Menu menu = menuRepository.findById(menuId)
@@ -62,7 +64,7 @@ public class MenuService implements IMenuService {
 
         return menuRepository.save(menu);
     }
-
+*/
 
     @Override
     public Menu updateMenu(Integer menuId, List<Integer> yemekIdList) {

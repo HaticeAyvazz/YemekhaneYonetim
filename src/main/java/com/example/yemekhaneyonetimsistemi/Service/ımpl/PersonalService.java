@@ -26,7 +26,7 @@ public class PersonalService implements IPersonalService {
 
     @Override
     public List<Personel> getAllPersonal() {
-        return personalRepository.findAll();
+        return personalRepository.getAll();
     }
 
 

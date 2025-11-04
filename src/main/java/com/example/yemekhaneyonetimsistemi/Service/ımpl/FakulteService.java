@@ -13,7 +13,7 @@ public class FakulteService implements IFakulteService {
     IFakulteRepository fakulteRepository;
     @Override
     public List<Fakulte> getAllFakulte() {
-        return fakulteRepository.findAll();
+        return fakulteRepository.getAll();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FakulteService implements IFakulteService {
     public Fakulte deleteFakulte(int id) {
         var fakulte = fakulteRepository.findById(id).orElse(null);
         if(fakulte != null) {
-            fakulteRepository.delete(fakulte);
+            fakulteRepository.deleteById(id);
             return fakulte;
         }
         return null;

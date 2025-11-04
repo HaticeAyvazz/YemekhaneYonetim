@@ -3,9 +3,9 @@ package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
 import com.example.yemekhaneyonetimsistemi.Repository.IPersonalRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IRezervasyonRepository;
-import com.example.yemekhaneyonetimsistemi.repository.IMenuRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IRezervasyonService;
-import com.example.yemekhaneyonetimsistemi.repository.IOgrenciRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
 import com.example.yemekhaneyonetimsistemi.entity.Menu;
 import com.example.yemekhaneyonetimsistemi.entity.Rezervasyon;
@@ -84,7 +84,7 @@ public class RezervasyonService implements IRezervasyonService {
     public Rezervasyon deleteRezervasyon(int id) {
         var rezervasyon1 = rezervasyonRepository.findById(id).orElse(null);
         if (rezervasyon1 != null) {
-            rezervasyonRepository.delete(rezervasyon1);
+            rezervasyonRepository.deleteById(id);
             return rezervasyon1;
         }
         return null;

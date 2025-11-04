@@ -3,6 +3,7 @@ package com.example.yemekhaneyonetimsistemi.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,7 @@ public class Menu {
             joinColumns = @JoinColumn(name = "menu_id"), // Menu tablosu tarafındaki sütun
             inverseJoinColumns = @JoinColumn(name = "yemek_id") // Yemek tablosu tarafındaki sütun
     )
-    private List<Yemek> yemekler;
+    private List<Yemek> yemekler=new ArrayList<>();
 
     public int getMenuId() {
         return menuId;

@@ -22,7 +22,7 @@ public class KategoriController implements IKategoriController {
     }
 
 
-    @PatchMapping("/update")
+    @PatchMapping("/update/{id}")
     @Override
     public Kategori updateKategori(@PathVariable int id, @RequestBody Kategori kategori) {
         return ikategoriService.updateKategori(id, kategori);
