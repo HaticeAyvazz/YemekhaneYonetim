@@ -1,10 +1,15 @@
-package com.example.yemekhaneyonetimsistemi.repository;
+package com.example.yemekhaneyonetimsistemi.Repository;
 
 import com.example.yemekhaneyonetimsistemi.entity.Admin;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+public interface IAdminRepository {
 
-@Repository
-public interface IAdminRepository extends JpaRepository<Admin,Integer> {
+    List<Admin> getAll();
 
+    Admin save(Admin admin);
+
+    void deleteById(int id);
+
+    Optional<Admin> findById(int id);
 }

@@ -26,7 +26,7 @@ public class OgrenciService implements IOgrenciService {
             ogr1.setOgrenciNo(ogrenci.getOgrenciNo());
             ogr1.setBolum(ogrenci.getBolum());
             ogr1.setEmail(ogrenci.getEmail());
-            ogr1.setKullaniciSoyad(ogrenci.getKullaniciSoyad());
+            ogr1.setKullaniciSoyadi(ogrenci.getKullaniciSoyadi());
             ogr1.setTelefonNo(ogrenci.getTelefonNo());
 
         }

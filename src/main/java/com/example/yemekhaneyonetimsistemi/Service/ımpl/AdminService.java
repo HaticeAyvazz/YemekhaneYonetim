@@ -2,7 +2,7 @@ package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
 import com.example.yemekhaneyonetimsistemi.Service.IAdminService;
 import com.example.yemekhaneyonetimsistemi.entity.Admin;
-import com.example.yemekhaneyonetimsistemi.repository.IAdminRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IAdminRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public List<Admin> getAll() {
-        return adminRepository.findAll();
+        return adminRepository.getAll();
     }
 
     @Override

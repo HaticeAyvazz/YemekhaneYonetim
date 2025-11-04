@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
-import com.example.yemekhaneyonetimsistemi.repository.IDepartmanRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IDepartmanRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IDepartmanService;
 import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class DepartmanService implements IDepartmanService {
     IDepartmanRepository departmanRepository;
     @Override
     public List<Departman> getAllDepartman() {
-        return departmanRepository.findAll();
+        return departmanRepository.getAll();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DepartmanService implements IDepartmanService {
     public Departman deleteDepartman(int id) {
         var departman = departmanRepository.findById(id).orElse(null);
         if(departman != null) {
-            departmanRepository.delete(departman);
+            departmanRepository.deleteById(id);
             return departman;
         }
         return null;

@@ -3,10 +3,10 @@ package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 import com.example.yemekhaneyonetimsistemi.Service.IPersonalService;
 import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import com.example.yemekhaneyonetimsistemi.entity.Personel;
-import com.example.yemekhaneyonetimsistemi.repository.IPersonalRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IPersonalRepository;
 import org.aspectj.weaver.loadtime.Options;
 import org.springframework.stereotype.Service;
-import com.example.yemekhaneyonetimsistemi.repository.IDepartmanRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IDepartmanRepository;
 
 import java.util.List;
 

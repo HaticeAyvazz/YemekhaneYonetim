@@ -1,32 +1,28 @@
-# === Maven/Gradle build klasörleri ===
-target/
-build/
-
-# === IDE dosyaları ===
-.idea/
-*.iml
-*.ipr
-*.iws
-.vscode/
+# Java / Maven / Gradle
+/target/
+/build/
 *.class
+*.jar
+*.war
+*.iml
 
-# === OS dosyaları ===
+# IntelliJ IDEA / VS Code / Eclipse ayarları
+/.idea/
+/.vscode/
+/.project
+/.classpath
+/.settings/
+
+# Sistem dosyaları
 .DS_Store
 Thumbs.db
 
-# === Logs ===
+# Logs & temporary files
 *.log
+/logs/
+/tmp/
 
-# === Environment / Credentials ===
+# Environment / Secrets
 application.properties
 application.yml
 .env
-
-# === Temporary files ===
-*.tmp
-*.bak
-
-# === Maven Wrapper
-mvnw
-mvnw.cmd
-.mvn/
