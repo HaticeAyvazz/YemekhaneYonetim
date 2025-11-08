@@ -1,25 +1,24 @@
 package com.example.yemekhaneyonetimsistemi.Service.ımpl;
 
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
+import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IPersonalRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IRezervasyonRepository;
-import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IRezervasyonService;
-import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
 import com.example.yemekhaneyonetimsistemi.entity.Menu;
 import com.example.yemekhaneyonetimsistemi.entity.Rezervasyon;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Service;
-
-
-import java.util.List;
-
 
 @Service
-
+@Lazy
 public class RezervasyonService implements IRezervasyonService {
 
 
