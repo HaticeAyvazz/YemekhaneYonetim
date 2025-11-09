@@ -4,6 +4,8 @@ import com.example.yemekhaneyonetimsistemi.Repository.IOgrenciRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IOgrenciService;
 import com.example.yemekhaneyonetimsistemi.entity.Kategori;
 import com.example.yemekhaneyonetimsistemi.entity.Ogrenci;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,15 @@ public class OgrenciService implements IOgrenciService {
 
     @Autowired
     IOgrenciRepository repository;
+
+    @PostConstruct
+    public void in(){
+        System.out.println("Ogrenciservice oluşturuluyor");
+    }
+    @PreDestroy
+    public void out(){
+        System.out.println("Ogrenciservice siliniyor");
+    }
 
     @Override
     public List<Ogrenci> getAllOgrenci() {
