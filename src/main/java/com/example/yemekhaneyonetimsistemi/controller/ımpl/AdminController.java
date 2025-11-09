@@ -26,7 +26,7 @@ public class AdminController implements IAdminController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/getAll")
     @Override
     public List<Admin> getAllAdmin() {
         return adminService.getAll();
