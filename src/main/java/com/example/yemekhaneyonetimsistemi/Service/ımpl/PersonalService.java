@@ -4,7 +4,10 @@ import com.example.yemekhaneyonetimsistemi.Service.IPersonalService;
 import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import com.example.yemekhaneyonetimsistemi.entity.Personel;
 import com.example.yemekhaneyonetimsistemi.Repository.IPersonalRepository;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.aspectj.weaver.loadtime.Options;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import com.example.yemekhaneyonetimsistemi.Repository.IDepartmanRepository;
 
@@ -16,6 +19,14 @@ public class PersonalService implements IPersonalService {
     private IPersonalRepository personalRepository;
     private IDepartmanRepository departmanRepository;
 
+    @PostConstruct
+    public void in(){
+        System.out.println("PersonalService oluşturuluyor");
+    }
+    @PreDestroy
+    public void out(){
+        System.out.println("PersonalService siliniyor");
+    }
 
     public PersonalService(IPersonalRepository personalRepository) {
 
