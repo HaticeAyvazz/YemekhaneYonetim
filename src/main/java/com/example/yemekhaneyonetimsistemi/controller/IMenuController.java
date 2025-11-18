@@ -11,9 +11,10 @@ public interface IMenuController {
 
      Menu createMenu(Integer menuId,List<Integer> yemekIds);
 
+     Menu createMenu(Menu menu);
      void deleteAllMenu(Integer menuId);
 
-  //  ResponseEntity<Menu>deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds);
+    ResponseEntity<Menu>deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds);
 
     Menu updateMenu(Integer menuId,List<Integer> yemekIdsList);
 

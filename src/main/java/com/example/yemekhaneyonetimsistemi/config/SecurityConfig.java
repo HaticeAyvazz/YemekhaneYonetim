@@ -1,5 +1,8 @@
 package com.example.yemekhaneyonetimsistemi.config;
 
+// Bu satırı eklemeniz gerekebilir
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,18 +16,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        
-        http
-            // Cross-Site Request Forgery (CSRF) korumasını kapatıyoruz
-            .csrf(AbstractHttpConfigurer::disable)
-            
-            // İstek Yetkilendirme Kurallarını Tanımlama
-            .authorizeHttpRequests(auth -> auth
-                // 🛑 KRİTİK ADIM: Tüm istekleri yetkilendirme zorunluluğundan muaf tutun.
-                .anyRequest().permitAll() 
-            );
 
-        // JWT, Basic Auth veya Session filtreleri olmadığı için başka bir şey eklemeye gerek yok.
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                )
+                .formLogin(withDefaults());
 
         return http.build();
     }
