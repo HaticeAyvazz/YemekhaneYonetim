@@ -18,13 +18,13 @@ public class DepartmanService implements IDepartmanService {
 
     @Override
     public Departman updateDepartman(int id, Departman departman) {
-        var departmna1 = departmanRepository.findById(id).orElse(null);
-        if (departmna1 != null) {
-            departmna1.setDepartmanAdi((departman.getDepartmanAdi()));
-            departmanRepository.save(departmna1);
-            return departmna1;
-        }
-        return null;
+        var departman1 = departmanRepository.findById(id).orElseThrow(()-> new RuntimeException("departman not found"));
+
+            if(departman.getDepartmanAdi()!=null){
+                departman1.setDepartmanAdi(departman.getDepartmanAdi());
+            }
+            return departmanRepository.save(departman1);
+
     }
 
     @Override

@@ -6,6 +6,9 @@ import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 import com.example.yemekhaneyonetimsistemi.exception.ResourceNotFoundException;
 import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IYemekRepository;
+import org.apache.logging.log4j.message.Message;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +36,14 @@ public class MenuService implements IMenuService {
 
 
     @Override
+    public Menu createMenu(Menu menu) {
+       if(menu==null){
+           throw new IllegalArgumentException("Menu cannot be null");
+       }
+        return  menuRepository.save(menu);
+    }
+
+    @Override
     public Menu createMenu(Integer menuId, List<Integer> yemekIds) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new RuntimeException("Menu Not Found"));
@@ -54,7 +65,7 @@ public class MenuService implements IMenuService {
         menuRepository.deleteById(menuId);
     }
 
-/*
+
     @Override
     public Menu deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds) {
         Menu menu = menuRepository.findById(menuId)
@@ -64,7 +75,7 @@ public class MenuService implements IMenuService {
 
         return menuRepository.save(menu);
     }
-*/
+
 
     @Override
     public Menu updateMenu(Integer menuId, List<Integer> yemekIdList) {

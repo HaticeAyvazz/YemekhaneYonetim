@@ -20,11 +20,18 @@ public class YemekService implements IYemekService {
 
     @Override
     public Yemek updateYemek(int id,Yemek yemek) {
-        var yemok = iYemekRepository.findById(id).orElse(null);
-        if(yemek != null) {
+        var yemok = iYemekRepository.findById(id).orElseThrow(()-> new RuntimeException("yemek not found"));
+
+        if(yemek.getYemekAdi()!=null){
             yemok.setYemekAdi(yemek.getYemekAdi());
+        }
+        if(yemek.getAciklama()!=null){
             yemok.setAciklama(yemek.getAciklama());
+        }
+        if(yemek.getUcret()!=null){
             yemok.setUcret(yemek.getUcret());
+        }
+        if(yemek.getKategori()!=null){
             yemok.setKategori(yemek.getKategori());
         }
         return iYemekRepository.save(yemok);

@@ -18,13 +18,13 @@ public class FakulteService implements IFakulteService {
 
     @Override
     public Fakulte updateFakulte(int id, Fakulte fakulte) {
-        var fakulte1 = fakulteRepository.findById(id).orElse(null);
-        if (fakulte1 != null) {
-            fakulte1.setFakulteAdi((fakulte.getFakulteAdi()));
-            fakulteRepository.save(fakulte1);
-            return fakulte1;
-        }
-        return null;
+        var fakulte1 = fakulteRepository.findById(id).orElseThrow(()->new RuntimeException("Fakulte  not found"));
+
+           if(fakulte.getFakulteAdi()!=null){
+               fakulte1.setFakulteAdi(fakulte.getFakulteAdi());
+           }
+
+        return fakulteRepository.save(fakulte1);
     }
 
     @Override

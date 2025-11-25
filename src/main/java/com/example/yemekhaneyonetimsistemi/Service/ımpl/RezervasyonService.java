@@ -41,16 +41,16 @@ public class RezervasyonService implements IRezervasyonService {
 
     @Override
     public Rezervasyon updateRezervasyon(int id, Rezervasyon rezervasyon) {
-        var rezervasyon1 = rezervasyonRepository.findById(id).orElse(null);
-        if (rezervasyon1 != null) {
-            rezervasyon1.setTarih(rezervasyon.getTarih());
-            rezervasyon1.setOnayDurumu(false);
-            if (rezervasyon.getMenu() != null) {
+        var rezervasyon1 = rezervasyonRepository.findById(id).orElseThrow(()-> new RuntimeException("Rezervasyon not found"));
+            if(rezervasyon.getTarih()!=null){
+                rezervasyon1.setTarih(rezervasyon.getTarih());
+            }
+            if(rezervasyon.getMenu()!=null){
                 rezervasyon1.setMenu(rezervasyon.getMenu());
             }
+            rezervasyon1.setOnayDurumu(false);
             return rezervasyonRepository.save(rezervasyon1);
-        }
-        return null;
+
     }
 
 

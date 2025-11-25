@@ -11,11 +11,12 @@ public interface IMenuService {
 
      Menu createMenu(Integer menuId,List<Integer> yemekIds);
 
+     Menu createMenu(Menu menu);
      //Tüm menüyü silme işlemi
     void deleteMenu(Integer menuId);
 
-    //Menüde seçili olan yemekleri silme
-   //  Menu deleteFoodFromMenu(Integer menuId,List<Integer>yemekIds);
+
+    Menu deleteFoodFromMenu(Integer menuId,List<Integer>yemekIds);
 
      //Menü içindeki yemekleri günceller
      Menu updateMenu(Integer menuId,List<Integer> yemekIdsList);

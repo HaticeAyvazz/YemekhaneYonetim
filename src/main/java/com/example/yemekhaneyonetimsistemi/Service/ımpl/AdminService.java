@@ -45,7 +45,7 @@ public class AdminService implements IAdminService {
             admin.setKullaniciAdi(adminDetails.getKullaniciAdi());
         }
         if(adminDetails.getKullaniciSoyadi()!=null){
-            admin.setKullaniciAdi(adminDetails.getKullaniciSoyadi());
+            admin.setKullaniciSoyadi(adminDetails.getKullaniciSoyadi());
         }
         if(adminDetails.getSifre()!=null){
             admin.setSifre(adminDetails.getSifre());

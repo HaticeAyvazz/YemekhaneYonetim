@@ -22,13 +22,15 @@ public class BolumService implements IBolumService {
 
     @Override
     public Bolum updateBolum(int id, Bolum bolum) {
-        var bolum1 = bolumRepository.findById(id).orElse(null);
-        if (bolum1 != null) {
+        var bolum1 = bolumRepository.findById(id).orElseThrow(()->new RuntimeException("Bolum not found"));
+
+        if(bolum.getBolumAdi()!=null) {
             bolum1.setBolumAdi(bolum.getBolumAdi());
-            bolum1.setFakulte(bolum.getFakulte());
-            return bolumRepository.save(bolum1);
         }
-        return null;
+        if(bolum.getFakulte()!=null) {
+            bolum1.setFakulte(bolum.getFakulte());
+        }
+            return bolumRepository.save(bolum1);
     }
 
     @Override
