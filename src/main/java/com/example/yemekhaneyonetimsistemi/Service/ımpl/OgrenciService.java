@@ -32,17 +32,26 @@ public class OgrenciService implements IOgrenciService {
 
     @Override
     public Ogrenci updateOgrenci(int id, Ogrenci ogrenci) {
-        Ogrenci ogr1=repository.findById(id).orElse(null);
-        if(ogrenci != null) {
-            Ogrenci ogr = repository.findById(id).orElse(null);
-            ogr1.setKullaniciAdi(ogrenci.getKullaniciAdi());
-            ogr1.setOgrenciNo(ogrenci.getOgrenciNo());
-            ogr1.setBolum(ogrenci.getBolum());
-            ogr1.setEmail(ogrenci.getEmail());
-            ogr1.setKullaniciSoyadi(ogrenci.getKullaniciSoyadi());
-            ogr1.setTelefonNo(ogrenci.getTelefonNo());
+        Ogrenci ogr1=repository.findById(id).orElseThrow(()->new RuntimeException("ogrenci bulunamadi"));
 
-        }
+            if(ogrenci.getKullaniciAdi()!=null) {
+                ogr1.setKullaniciAdi(ogrenci.getKullaniciAdi());
+            }
+            if(ogrenci.getOgrenciNo()!=null) {
+                ogr1.setOgrenciNo(ogrenci.getOgrenciNo());
+            }
+            if(ogrenci.getBolum()!=null) {
+                ogr1.setBolum(ogrenci.getBolum());
+            }
+           if(ogrenci.getEmail()!=null) {
+               ogr1.setEmail(ogrenci.getEmail());
+           }
+            if(ogrenci.getKullaniciSoyadi()!=null) {
+                ogr1.setKullaniciSoyadi(ogrenci.getKullaniciSoyadi());
+            }
+           if(ogrenci.getTelefonNo()!=null) {
+               ogr1.setTelefonNo(ogrenci.getTelefonNo());
+           }
         return repository.save(ogr1);
     }
 
