@@ -21,15 +21,15 @@ public class KategoriService implements IKategoriService {
 
     @Override
     public Kategori updateKategori(int id, Kategori kategori) {
-        // ID'ye göre var olan kategori
-        Kategori kategorii = repository.findById(id).orElse(null);
+        Kategori kategorii = repository.findById(id).orElseThrow(()->new RuntimeException("Kategori  not found"));
 
-        if (kategorii != null && kategori != null) {
-            kategorii.setKategoriAd(kategori.getKategoriAd()); // kategorii.setKategoriAd(null) çağrılır!
-            kategorii.setTip(kategori.getTip());
-            return repository.save(kategorii);
-        }
-        return null;
+       if(kategori.getKategoriAd()!=null){
+           kategorii.setKategoriAd(kategori.getKategoriAd());
+       }
+       if(kategori.getTip()!=null){
+           kategorii.setTip(kategori.getTip());
+       }
+       return repository.save(kategorii);
     }
 
     @Override
