@@ -20,6 +20,10 @@ public class Kullanici {
     @Column(name = "sifre")
     private String sifre;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
+    private Role role;
+
 
     public int getKullaniciId() {
         return kullaniciId;
@@ -51,5 +55,13 @@ public class Kullanici {
 
     public void setSifre(String sifre) {
         this.sifre = sifre;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
