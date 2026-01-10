@@ -26,33 +26,38 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(customUserDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(customUserDetailsService); // EntityManager kullanan servis
+        provider.setPasswordEncoder(passwordEncoder()); // Hash kontrolü yapan encoder
         return provider;
     }
 
-
-    //Endpointlere göre izinlendirmelere daha sonrasında bakılacak.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // Postman testleri için kapalı
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll() // Kayıt ve Login serbest
                         .requestMatchers("/rest/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/rest/api/bolum/**").hasAnyRole("ADMIN","PERSONEL")
+                        .requestMatchers("/rest/api/ogrenci/**").permitAll()
+                        .requestMatchers("/rest/api/personel/**").hasAnyRole("ADMIN", "PERSONEL")
                         .anyRequest().authenticated()
                 )
-                .authenticationProvider(authenticationProvider())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults()); // Basic Auth (Postman için ideal)
 
         return http.build();
     }
+
+
+
+
+
+
+
 }

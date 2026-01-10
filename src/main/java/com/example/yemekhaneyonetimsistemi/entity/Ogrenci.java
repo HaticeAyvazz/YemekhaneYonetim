@@ -15,7 +15,7 @@ public class Ogrenci extends Kullanici {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name = "bolum_id",nullable = false)
     private Bolum bolum;
 

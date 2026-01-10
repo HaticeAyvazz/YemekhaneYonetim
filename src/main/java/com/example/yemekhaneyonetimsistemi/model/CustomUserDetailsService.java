@@ -1,29 +1,45 @@
 package com.example.yemekhaneyonetimsistemi.model;
-
-import com.example.yemekhaneyonetimsistemi.Repository.KullaniciRepository;
 import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final KullaniciRepository kullaniciRepository;
 
-    public CustomUserDetailsService(KullaniciRepository kullaniciRepository) {
-        this.kullaniciRepository = kullaniciRepository;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+           //Db den kullanıcı çekilir
+            TypedQuery<Kullanici> query = entityManager.createQuery(
+                    "SELECT k FROM Kullanici k WHERE k.kullaniciAdi = :username",
+                    Kullanici.class
+            );
+            query.setParameter("username", username);
+            Kullanici kullanici = query.getSingleResult();
+            return new CustomUserDetails(kullanici);
 
-        Kullanici kullanici = kullaniciRepository
-                .findByKullaniciAdi(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("Kullanıcı bulunamadı"));
-
-        return new CustomUserDetails(kullanici);
+        } catch (NoResultException e) {
+            throw new UsernameNotFoundException("Kullanıcı adı sistemde bulunamadı: " + username);
+        }
     }
 }
+
+
+
+
+
+
+
+
