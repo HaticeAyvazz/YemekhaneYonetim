@@ -12,7 +12,7 @@ public class Personel extends Kullanici {
     @Column(name = "telefonnumarasi")
     private String telefonNo;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
     @JoinColumn(name = "departman_id",nullable = false)
     private Departman departman;
 
