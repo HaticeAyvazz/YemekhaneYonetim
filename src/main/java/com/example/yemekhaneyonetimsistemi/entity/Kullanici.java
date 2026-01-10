@@ -1,55 +1,74 @@
+// src/main/java/com/example/yemekhaneyonetimsistemi/entity/Kullanici.java
+
 package com.example.yemekhaneyonetimsistemi.entity;
 
+import com.example.yemekhaneyonetimsistemi.entity.KullaniciRole;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "kullanici")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Kullanici {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "kullaniciid")
-    private int kullaniciId;
+    private int id;
 
-    @Column(name = "kullaniciad")
+    @Column(name = "kullanici_adi", unique = true, nullable = false)
     private String kullaniciAdi;
 
-    @Column(name = "kullanicisoyad")
-    private String kullaniciSoyadi;
-
-    @Column(name = "sifre")
+    @Column(name = "sifre", nullable = false)
     private String sifre;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", nullable = false)
+    private KullaniciRole rol;
 
-    public int getKullaniciId() {
-        return kullaniciId;
-    }
+    // Ortak Opsiyonel Alanlar
+    @Column(name = "email")
+    private String email;
 
-    public void setKullaniciId(int kullaniciId) {
-        this.kullaniciId = kullaniciId;
-    }
+    @Column(name = "telefon_no")
+    private String telefonNo;
 
-    public String getKullaniciAdi() {
-        return kullaniciAdi;
-    }
+    @Column(name = "kullanici_no")
+    private String kullaniciNo;
 
-    public void setKullaniciAdi(String kullaniciAdi) {
-        this.kullaniciAdi = kullaniciAdi;
-    }
+    // İlişkisel Alanlar
+    // Bolum (Sadece Öğrenci için, nullable)
+    @ManyToOne()
+    @JoinColumn(name = "bolum_id") // Default olarak nullable=true
+    private  Bolum bolum;
 
-    public String getKullaniciSoyadi() {
-        return kullaniciSoyadi;
-    }
+    // Departman (Sadece Personel için, nullable)
+    @ManyToOne()
+    @JoinColumn(name = "departman_id") // Default olarak nullable=true
+    private Departman departman;
 
-    public void setKullaniciSoyadi(String kullaniciSoyadi) {
-        this.kullaniciSoyadi = kullaniciSoyadi;
-    }
 
-    public String getSifre() {
-        return sifre;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setSifre(String sifre) {
-        this.sifre = sifre;
-    }
+    public String getKullaniciAdi() { return kullaniciAdi; }
+    public void setKullaniciAdi(String kullaniciAdi) { this.kullaniciAdi = kullaniciAdi; }
+
+    public String getSifre() { return sifre; }
+    public void setSifre(String sifre) { this.sifre = sifre; }
+
+    public KullaniciRole getRol() { return rol; }
+    public void setRol(KullaniciRole rol) { this.rol = rol; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getTelefonNo() { return telefonNo; }
+    public void setTelefonNo(String telefonNo) { this.telefonNo = telefonNo; }
+
+    public String getKullaniciNo() { return kullaniciNo; }
+    public void setKullaniciNo(String kullaniciNo) { this.kullaniciNo = kullaniciNo; }
+
+    public Bolum getBolum() { return bolum; }
+    public void setBolum(Bolum bolum) { this.bolum = bolum; }
+
+    public Departman getDepartman() { return departman; }
+    public void setDepartman(Departman departman) { this.departman = departman; }
 }

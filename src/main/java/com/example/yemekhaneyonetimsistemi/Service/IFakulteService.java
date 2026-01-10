@@ -1,7 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Service;
 
 import com.example.yemekhaneyonetimsistemi.entity.Fakulte;
-import com.example.yemekhaneyonetimsistemi.entity.Ogrenci;
 
 import java.util.List;
 

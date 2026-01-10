@@ -1,7 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Repository.ımpl;
 
 import com.example.yemekhaneyonetimsistemi.Repository.IBolumRepository;
-import com.example.yemekhaneyonetimsistemi.entity.Admin;
 import com.example.yemekhaneyonetimsistemi.entity.Bolum;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
