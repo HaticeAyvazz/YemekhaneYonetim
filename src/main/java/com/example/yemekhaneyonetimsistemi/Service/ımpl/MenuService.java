@@ -6,6 +6,7 @@ import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 import com.example.yemekhaneyonetimsistemi.exception.ResourceNotFoundException;
 import com.example.yemekhaneyonetimsistemi.Repository.IMenuRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IYemekRepository;
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.message.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,6 +79,7 @@ public class MenuService implements IMenuService {
 
 
     @Override
+    @Transactional
     public Menu updateMenu(Integer menuId, List<Integer> yemekIdList) {
         Menu guncelMenu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new RuntimeException("Menu not found with ID: " + menuId));
@@ -88,9 +90,25 @@ public class MenuService implements IMenuService {
                     .collect(Collectors.toList());
 
             guncelMenu.setYemekler(newFoodList);
-
             return menuRepository.save(guncelMenu);
         }
+
+    @Override
+    @Transactional
+    public Menu updateFullMenu(Integer menuId, Menu yeniMenuVerileri) {
+        Menu mevcutMenu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new RuntimeException("Menu not found"));
+
+       mevcutMenu.setKayitTarihi(yeniMenuVerileri.getKayitTarihi());
+       mevcutMenu.setTarih(yeniMenuVerileri.getTarih());
+       mevcutMenu.setGuncellenmeTarihi(yeniMenuVerileri.getGuncellenmeTarihi());
+
+        // Yemek listesini günceller
+        mevcutMenu.setYemekler(yeniMenuVerileri.getYemekler());
+
+        return menuRepository.save(mevcutMenu);
+    }
+
 
 
 

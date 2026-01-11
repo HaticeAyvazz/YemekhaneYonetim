@@ -19,7 +19,6 @@ public class MenuController implements IMenuController {
     }
 
 
-
     @GetMapping(path = "/list")
     @Override
     public List<Menu> getMenuList() {
@@ -54,11 +53,16 @@ public class MenuController implements IMenuController {
         return ResponseEntity.ok(updatedMenuFood);
     }
 
-    @PutMapping("/update/{menuId}")
+    @PutMapping("/putUpdate/{id}")
     @Override
-    public Menu updateMenu(@PathVariable Integer menuId,@RequestBody List<Integer> yemekIdsList) {
-        return menuService.updateMenu(menuId,yemekIdsList);
+    public Menu putUpdate(@PathVariable Integer menuId,@RequestBody Menu menu) {
+        return menuService.updateFullMenu(menuId,menu);
     }
 
+    @PatchMapping("/patchUpdate/{id}")
+    @Override
+    public Menu patchUpdate(Integer menuId, List<Integer> yemekIdsList) {
+        return menuService.updateMenu(menuId,yemekIdsList);
+    }
 
 }

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IKategoriService {
     public List<Kategori> getAllKategori();
-    public Kategori updateKategori(int id,Kategori kategori);
+    public Kategori partialUpdate(int id,Kategori kategori);
+    Kategori fullUpdate(int id,Kategori kategori);
     public Kategori insertKategori(Kategori kategori);
     public Kategori deleteKategori(int id);
 }

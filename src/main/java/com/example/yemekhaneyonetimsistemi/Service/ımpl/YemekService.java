@@ -18,8 +18,9 @@ public class YemekService implements IYemekService {
         return iYemekRepository.getAll();
     }
 
+
     @Override
-    public Yemek updateYemek(int id,Yemek yemek) {
+    public Yemek partialUpdate(int id,Yemek yemek) {
         var yemok = iYemekRepository.findById(id).orElseThrow(()-> new RuntimeException("yemek not found"));
 
         if(yemek.getYemekAdi()!=null){
@@ -36,6 +37,20 @@ public class YemekService implements IYemekService {
         }
         return iYemekRepository.save(yemok);
     }
+
+
+    @Override
+    public Yemek fullUpdate(int id, Yemek yemek) {
+        Yemek yemek1=iYemekRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Yemek not found"));
+
+        yemek1.setYemekAdi(yemek.getYemekAdi());
+        yemek1.setAciklama(yemek.getAciklama());
+        yemek1.setUcret(yemek.getUcret());
+        yemek1.setKategori(yemek.getKategori());
+        return iYemekRepository.save(yemek1);
+    }
+
 
     @Override
     public Yemek insertYemek( Yemek yemek) {

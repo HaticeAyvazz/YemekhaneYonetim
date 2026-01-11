@@ -36,10 +36,13 @@ public class RezervasyonService implements IRezervasyonService {
     }
 
     @Override
-    public Rezervasyon updateRezervasyon(int id, Rezervasyon rezervasyon) {
+    public Rezervasyon partialUpdate(int id, Rezervasyon rezervasyon) {
         var rezervasyon1 = rezervasyonRepository.findById(id).orElseThrow(()-> new RuntimeException("Rezervasyon not found"));
         if(rezervasyon.getTarih()!=null){
             rezervasyon1.setTarih(rezervasyon.getTarih());
+        }
+        if(rezervasyon.getKullanici()!=null){
+            rezervasyon1.setKullanici(rezervasyon.getKullanici());
         }
         if(rezervasyon.getMenu()!=null){
             rezervasyon1.setMenu(rezervasyon.getMenu());
@@ -49,6 +52,17 @@ public class RezervasyonService implements IRezervasyonService {
 
     }
 
+
+    @Override
+    public Rezervasyon fullUpdate(int id, Rezervasyon rezervasyon) {
+        Rezervasyon rezervasyon1=rezervasyonRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Rezerasyon not found"));
+        rezervasyon1.setTarih(rezervasyon.getTarih());
+        rezervasyon1.setMenu(rezervasyon.getMenu());
+        rezervasyon1.setKullanici(rezervasyon.getKullanici());
+        rezervasyon1.setOnayDurumu(false);
+        return rezervasyonRepository.save(rezervasyon1);
+    }
 
     public Rezervasyon insertRezervasyon(Rezervasyon rezervasyon) {
 

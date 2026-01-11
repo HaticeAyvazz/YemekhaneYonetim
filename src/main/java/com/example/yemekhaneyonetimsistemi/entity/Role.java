@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.entity;
 
-public enum KullaniciRole {
+public enum Role {
     ADMIN,
     PERSONEL,
     OGRENCI

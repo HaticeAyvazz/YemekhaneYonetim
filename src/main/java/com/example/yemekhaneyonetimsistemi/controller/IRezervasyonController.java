@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IRezervasyonController {
     public List<Rezervasyon> getAllRezervasyon();
-    public Rezervasyon updateRezervasyon(int id, Rezervasyon rezervasyon);
+    public Rezervasyon patchUpdate(int id, Rezervasyon rezervasyon);
+    Rezervasyon putUpdate(int id,Rezervasyon rezervasyon);
     public Rezervasyon insertRezervasyon(Rezervasyon rezervasyon);
     public Rezervasyon deleteRezervasyon(int id);
 }

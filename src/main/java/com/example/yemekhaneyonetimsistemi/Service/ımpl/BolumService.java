@@ -15,22 +15,35 @@ public class BolumService implements IBolumService {
     public BolumService(IBolumRepository bolumRepository) {
         this.bolumRepository = bolumRepository;
     }
+
     @Override
     public List<Bolum> getAllBolum() {
         return bolumRepository.getAll();
     }
 
-    @Override
-    public Bolum updateBolum(int id, Bolum bolum) {
-        var bolum1 = bolumRepository.findById(id).orElseThrow(()->new RuntimeException("Bolum not found"));
 
-        if(bolum.getBolumAdi()!=null) {
-            bolum1.setBolumAdi(bolum.getBolumAdi());
+    @Override
+    public Bolum fullUpdate(int id, Bolum bolum) {
+        Bolum bolum1=bolumRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Bolum not founs"));
+
+        bolum1.setBolumAdi(bolum.getBolumAdi());
+        bolum1.setFakulte(bolum.getFakulte());
+        return bolumRepository.save(bolum1);
+    }
+
+
+    @Override
+    public Bolum partialUpdate(int id, Bolum bolum) {
+        Bolum mevcut=bolumRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Bolum not found"));
+        if (bolum.getBolumAdi() != null) {
+            mevcut.setBolumAdi(bolum.getBolumAdi());
         }
-        if(bolum.getFakulte()!=null) {
-            bolum1.setFakulte(bolum.getFakulte());
+        if (bolum.getFakulte() != null) {
+            mevcut.setFakulte(bolum.getFakulte());
         }
-            return bolumRepository.save(bolum1);
+        return bolumRepository.save(mevcut);
     }
 
     @Override

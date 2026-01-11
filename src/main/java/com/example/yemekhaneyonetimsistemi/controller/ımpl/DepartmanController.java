@@ -10,23 +10,34 @@ import java.util.List;
 @RequestMapping("/rest/api/departman")
 @RestController
 public class DepartmanController implements IDepartmanController {
+
     @Autowired
     IDepartmanService iDepartmanService;
+
     @GetMapping("/getAll")
     @Override
     public List<Departman> getAllDepartman() {
         return iDepartmanService.getAllDepartman();
     }
-    @PatchMapping("/update/{id}")
+
+    @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Departman updateDepartman(@PathVariable(name = "id") int id,@RequestBody Departman departman) {
-        return iDepartmanService.updateDepartman(id, departman);
+    public Departman patchUpdate(@PathVariable(name = "id") int id,@RequestBody Departman departman) {
+        return iDepartmanService.partialUpdate(id, departman);
     }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Departman putUpdate(@PathVariable int id,@RequestBody Departman departman) {
+        return iDepartmanService.fullUpdate(id,departman);
+    }
+
     @PostMapping("/save")
     @Override
     public Departman insertDepartman(@RequestBody Departman departman) {
         return iDepartmanService.insertDepartman(departman);
     }
+
 
     @DeleteMapping("/delete/{id}")
     @Override

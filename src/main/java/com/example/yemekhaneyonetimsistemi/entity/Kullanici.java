@@ -2,7 +2,6 @@
 
 package com.example.yemekhaneyonetimsistemi.entity;
 
-import com.example.yemekhaneyonetimsistemi.entity.KullaniciRole;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +12,7 @@ public class Kullanici {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "kullanici_adi", unique = true, nullable = false)
+    @Column(name = "kullaniciad", unique = true, nullable = false)
     private String kullaniciAdi;
 
     @Column(name = "sifre", nullable = false)
@@ -21,7 +20,7 @@ public class Kullanici {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
-    private KullaniciRole rol;
+    private Role rol;
 
     // Ortak Opsiyonel Alanlar
     @Column(name = "email")
@@ -34,13 +33,15 @@ public class Kullanici {
     private String kullaniciNo;
 
     // İlişkisel Alanlar
+
     // Bolum (Sadece Öğrenci için, nullable)
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "bolum_id") // Default olarak nullable=true
     private  Bolum bolum;
 
+
     // Departman (Sadece Personel için, nullable)
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "departman_id") // Default olarak nullable=true
     private Departman departman;
 
@@ -54,8 +55,8 @@ public class Kullanici {
     public String getSifre() { return sifre; }
     public void setSifre(String sifre) { this.sifre = sifre; }
 
-    public KullaniciRole getRol() { return rol; }
-    public void setRol(KullaniciRole rol) { this.rol = rol; }
+    public Role getRol() { return rol; }
+    public void setRol(Role rol) { this.rol = rol; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }

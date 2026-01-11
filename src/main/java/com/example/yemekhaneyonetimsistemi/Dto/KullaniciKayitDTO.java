@@ -1,6 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.Dto;
 
-import com.example.yemekhaneyonetimsistemi.entity.KullaniciRole;
+import com.example.yemekhaneyonetimsistemi.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class KullaniciKayitDTO {
     private String kullaniciAdi;
     private String sifre;
-    private KullaniciRole rol;
+    private Role rol;
     private String email;
     private String telefonNo;
 

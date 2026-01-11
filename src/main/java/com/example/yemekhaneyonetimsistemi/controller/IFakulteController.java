@@ -5,8 +5,9 @@ import com.example.yemekhaneyonetimsistemi.entity.Fakulte;
 import java.util.List;
 
 public interface IFakulteController {
-    public List<Fakulte> getAllFakulte();
-    public Fakulte updateFakulte(int id,Fakulte fakulte);
-    public Fakulte insertFakulte(Fakulte fakulte);
-    public Fakulte deleteFakulte(int id);
+     List<Fakulte> getAllFakulte();
+     Fakulte patchUpdate(int id,Fakulte fakulte);
+     Fakulte putUpdate(int id,Fakulte fakulte);
+     Fakulte insertFakulte(Fakulte fakulte);
+     Fakulte deleteFakulte(int id);
 }

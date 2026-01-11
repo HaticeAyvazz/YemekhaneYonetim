@@ -1,5 +1,6 @@
 package com.example.yemekhaneyonetimsistemi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -22,8 +23,9 @@ public class Yemek {
     @Column(name = "ucret")
     private BigDecimal ucret;
 
-    @ManyToOne
+    @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "kategori_id",nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Kategori kategori;
 
     public int getYemekId() {

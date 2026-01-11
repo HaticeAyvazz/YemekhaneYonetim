@@ -28,7 +28,7 @@ public class Menu {
     // YENİ İLİŞKİ: Menu'nün içinde Yemekler Listesi
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "menu_yemek", // JPA'nın arka planda oluşturacağı tablonun adı
+            name = "menu_yemek",
             joinColumns = @JoinColumn(name = "menu_id"), // Menu tablosu tarafındaki sütun
             inverseJoinColumns = @JoinColumn(name = "yemek_id") // Yemek tablosu tarafındaki sütun
     )

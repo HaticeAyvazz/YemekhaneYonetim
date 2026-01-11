@@ -18,11 +18,19 @@ public class RezervasyonController implements IRezervasyonController {
     public List<Rezervasyon> getAllRezervasyon() {
         return iRezervasyonService.getAllRezervasyon();
     }
-    @PatchMapping("/update/{id}")
+
+    @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Rezervasyon updateRezervasyon(@PathVariable(name = "id") int id,@RequestBody Rezervasyon rezervasyon) {
-        return iRezervasyonService.updateRezervasyon(id, rezervasyon);
+    public Rezervasyon patchUpdate(@PathVariable(name = "id") int id,@RequestBody Rezervasyon rezervasyon) {
+        return iRezervasyonService.partialUpdate(id, rezervasyon);
     }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Rezervasyon putUpdate(@PathVariable int id, @RequestBody Rezervasyon rezervasyon) {
+        return iRezervasyonService.fullUpdate(id,rezervasyon);
+    }
+
     @PostMapping("/save")
     @Override
     public Rezervasyon insertRezervasyon(@RequestBody Rezervasyon rezervasyon) {

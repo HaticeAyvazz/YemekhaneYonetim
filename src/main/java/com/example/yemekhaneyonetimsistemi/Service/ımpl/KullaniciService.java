@@ -8,10 +8,11 @@ import com.example.yemekhaneyonetimsistemi.Service.IKullaniciService;
 import com.example.yemekhaneyonetimsistemi.entity.Bolum;
 import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
-import com.example.yemekhaneyonetimsistemi.entity.KullaniciRole;
+import com.example.yemekhaneyonetimsistemi.entity.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,26 +27,28 @@ public class KullaniciService implements IKullaniciService {
     private  IDepartmanRepository departmanRepository;
     @Autowired
     private RepositoryMethodInvocationListener repositoryMethodInvocationListener;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Transactional
     public Kullanici insertKullanici(KullaniciKayitDTO dto) {
 
-
         Kullanici kullanici = new Kullanici();
+
+        //TEeml Alanlar
         kullanici.setKullaniciAdi(dto.getKullaniciAdi());
-
-
-        kullanici.setSifre(dto.getSifre());
-
-
         kullanici.setRol(dto.getRol());
         kullanici.setEmail(dto.getEmail());
         kullanici.setTelefonNo(dto.getTelefonNo());
         kullanici.setKullaniciNo(dto.getKullaniciNo());
 
+        //Şifre hashlenmiş olmalı
+        kullanici.setSifre(passwordEncoder.encode(dto.getSifre()));
+
+
         // 2. Rol Bazlı Doğrulama ve Alan Ayarlaması (İş Mantığı)
-        if (dto.getRol() == KullaniciRole.OGRENCI) {
+        if (dto.getRol() == Role.OGRENCI) {
             // Öğrenci için zorunlu alan kontrolü
             if (dto.getKullaniciNo() == null ) {
                 throw new IllegalArgumentException("Öğrenci kaydı için kullanıcı numrası ve bölüm zorunludur.");
@@ -59,7 +62,7 @@ public class KullaniciService implements IKullaniciService {
 
             kullanici.setDepartman(null); // Diğer özel alanları temizle
 
-        } else if (dto.getRol() == KullaniciRole.PERSONEL) {
+        } else if (dto.getRol() == Role.PERSONEL) {
             // Personel için zorunlu alan kontrolü
             if(dto.getKullaniciNo()==null){
                 throw  new IllegalArgumentException("Pernosel kaydı için kullanıcı numrası ve departman zorunludur");
@@ -73,7 +76,7 @@ public class KullaniciService implements IKullaniciService {
             kullanici.setKullaniciNo(null); // Diğer özel alanları temizle
             kullanici.setBolum(null);
 
-        } else if (dto.getRol() == KullaniciRole.ADMIN) {
+        } else if (dto.getRol() == Role.ADMIN) {
             // Admin için özel alanları temizle
             kullanici.setKullaniciNo(null);
             kullanici.setBolum(null);
@@ -151,7 +154,7 @@ public class KullaniciService implements IKullaniciService {
             mevcutKullanici.setRol(guncelKullaniciBilgisi.getRol());
         }
 
-        if (mevcutKullanici.getRol() == KullaniciRole.PERSONEL) {
+        if (mevcutKullanici.getRol() == Role.PERSONEL) {
 
             // Departman güncellemesi: Eğer yeni departman ID gönderilmişse
             if (guncelKullaniciBilgisi.getDepartman() != null) {
@@ -164,7 +167,7 @@ public class KullaniciService implements IKullaniciService {
                 mevcutKullanici.setDepartman(yeniDepartman);
             }
 
-        } else if (mevcutKullanici.getRol() == KullaniciRole.OGRENCI) {
+        } else if (mevcutKullanici.getRol() == Role.OGRENCI) {
 
             if (guncelKullaniciBilgisi.getKullaniciNo() != null) {
                 mevcutKullanici.setKullaniciNo(guncelKullaniciBilgisi.getKullaniciNo());

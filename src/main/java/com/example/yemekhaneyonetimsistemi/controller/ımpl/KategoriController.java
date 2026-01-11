@@ -22,10 +22,16 @@ public class KategoriController implements IKategoriController {
     }
 
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Kategori updateKategori(@PathVariable int id, @RequestBody Kategori kategori) {
-        return ikategoriService.updateKategori(id, kategori);
+    public Kategori putUpdate(@PathVariable int id, @RequestBody Kategori kategori) {
+        return ikategoriService.partialUpdate(id, kategori);
+    }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Kategori patchUpdate(@PathVariable int id,@RequestBody Kategori kategori) {
+        return ikategoriService.fullUpdate(id,kategori);
     }
 
     @PostMapping("/save")

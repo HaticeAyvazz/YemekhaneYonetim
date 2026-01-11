@@ -14,7 +14,6 @@ public class KullaniciController implements IKullaniciController
 {
     @Autowired
     IKullaniciService kullaniciService;
-
     @GetMapping("/getAll")
     @Override
     public List<Kullanici> getAllKullanici() {

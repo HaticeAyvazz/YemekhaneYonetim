@@ -20,7 +20,7 @@ public interface IMenuService {
 
      //Menü içindeki yemekleri günceller
      Menu updateMenu(Integer menuId,List<Integer> yemekIdsList);
-
+     Menu updateFullMenu(Integer menuId, Menu yeniMenuVerileri);
 
 
 

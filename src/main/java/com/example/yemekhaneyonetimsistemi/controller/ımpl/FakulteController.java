@@ -3,6 +3,7 @@ package com.example.yemekhaneyonetimsistemi.controller.ımpl;
 import com.example.yemekhaneyonetimsistemi.Service.IFakulteService;
 import com.example.yemekhaneyonetimsistemi.controller.IFakulteController;
 import com.example.yemekhaneyonetimsistemi.entity.Fakulte;
+import jakarta.persistence.PreUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +14,32 @@ public class FakulteController implements IFakulteController {
 
     @Autowired
     IFakulteService fakulteService;
+
     @GetMapping("/getAll")
     @Override
     public List<Fakulte> getAllFakulte() {
         return fakulteService.getAllFakulte();
     }
-    @PatchMapping("/update/{id}")
+
+    @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Fakulte updateFakulte(@PathVariable(name = "id") int id,@RequestBody Fakulte fakulte) {
-        return fakulteService.updateFakulte(id, fakulte);
+    public Fakulte patchUpdate(@PathVariable(name = "id") int id,@RequestBody Fakulte fakulte) {
+        return fakulteService.partialUpdate(id, fakulte);
     }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Fakulte putUpdate(@PathVariable int id,@RequestBody Fakulte fakulte) {
+        return fakulteService.fullUpdate(id,fakulte);
+    }
+
+
     @PostMapping("/save")
     @Override
     public Fakulte insertFakulte(@RequestBody Fakulte fakulte) {
         return fakulteService.insertFakulte(fakulte);
     }
+
     @DeleteMapping("/delete/{id}")
     @Override
     public Fakulte deleteFakulte(@PathVariable(name = "id") int id) {

@@ -5,8 +5,9 @@ import com.example.yemekhaneyonetimsistemi.entity.Departman;
 import java.util.List;
 
 public interface IDepartmanController {
-    public List<Departman> getAllDepartman();
-    public Departman updateDepartman(int id,Departman departman);
-    public Departman insertDepartman(Departman departman);
-    public Departman deleteDepartman(int id);
+     List<Departman> getAllDepartman();
+     Departman putUpdate(int id,Departman departman);
+     Departman patchUpdate(int id,Departman departman);
+     Departman insertDepartman(Departman departman);
+     Departman deleteDepartman(int id);
 }

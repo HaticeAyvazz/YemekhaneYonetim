@@ -20,10 +20,16 @@ public class YemekController implements IYemekController {
         return iYemekService.getAllYemek();
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Yemek updateYemek(@PathVariable(name = "id", required = true) int id, @RequestBody Yemek yemek) {
-        return iYemekService.updateYemek(id, yemek);
+    public Yemek patchUpdate(@PathVariable(name = "id", required = true) int id, @RequestBody Yemek yemek) {
+        return iYemekService.partialUpdate(id, yemek);
+    }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Yemek putUpdate(@PathVariable int id,@RequestBody Yemek yemek) {
+        return iYemekService.fullUpdate(id,yemek);
     }
 
     @PostMapping("/save")

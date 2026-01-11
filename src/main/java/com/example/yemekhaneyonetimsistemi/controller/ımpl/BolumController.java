@@ -18,19 +18,30 @@ public class BolumController implements IBolumContoller {
     public List<Bolum> getAllBolum() {
         return bolumService.getAllBolum();
     }
-    @PatchMapping("/update/{id}")
-    @Override
-    public Bolum updateBolum(@PathVariable(name = "id") int id,@RequestBody Bolum bolum) {
-        return bolumService.updateBolum(id,bolum);
-    }
+
     @PostMapping("/save")
     @Override
     public Bolum insertBolum(@RequestBody Bolum bolum) {
         return bolumService.insertBolum(bolum);
     }
+
+    @PutMapping("/putUpdate/{id}")
+    @Override
+    public Bolum putUpdate(@PathVariable int id,@RequestBody Bolum bolum) {
+        return bolumService.fullUpdate(id, bolum);
+    }
+
+    @PatchMapping("/patchUpdate/{id}")
+    @Override
+    public Bolum patchUpdate(@PathVariable int id,@RequestBody Bolum bolum) {
+        return bolumService.partialUpdate(id,bolum);
+    }
+
     @DeleteMapping("/delete/{id}")
     @Override
     public Bolum deleteBolum(@PathVariable(name = "id") int id) {
         return bolumService.deleteBolum(id);
     }
+
+
 }

@@ -20,7 +20,7 @@ public class KategoriService implements IKategoriService {
 
 
     @Override
-    public Kategori updateKategori(int id, Kategori kategori) {
+    public Kategori partialUpdate(int id, Kategori kategori) {
         Kategori kategorii = repository.findById(id).orElseThrow(()->new RuntimeException("Kategori  not found"));
 
        if(kategori.getKategoriAd()!=null){
@@ -30,6 +30,14 @@ public class KategoriService implements IKategoriService {
            kategorii.setTip(kategori.getTip());
        }
        return repository.save(kategorii);
+    }
+
+    @Override
+    public Kategori fullUpdate(int id, Kategori kategori) {
+        Kategori kategori2=repository.findById(id).orElseThrow(()->new RuntimeException("Kategori not found"));
+        kategori2.setKategoriAd(kategori.getKategoriAd());
+        kategori2.setTip(kategori.getTip());
+        return repository.save(kategori2);
     }
 
     @Override

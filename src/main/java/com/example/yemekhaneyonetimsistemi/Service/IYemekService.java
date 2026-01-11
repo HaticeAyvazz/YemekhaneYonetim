@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IYemekService {
     public List<Yemek> getAllYemek();
-    public Yemek updateYemek(int id,Yemek yemek);
+    public Yemek partialUpdate(int id,Yemek yemek);
+    Yemek fullUpdate(int id,Yemek yemek);
     public Yemek insertYemek(Yemek yemek);
     public Yemek deleteYemek(int id);
 

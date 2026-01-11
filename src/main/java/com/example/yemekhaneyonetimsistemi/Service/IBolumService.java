@@ -5,8 +5,9 @@ import com.example.yemekhaneyonetimsistemi.entity.Bolum;
 import java.util.List;
 
 public interface IBolumService {
-    public List<Bolum> getAllBolum();
-    public Bolum updateBolum(int id,Bolum bolum);
-    public Bolum insertBolum(Bolum bolum);
-    public Bolum deleteBolum(int id);
+    List<Bolum> getAllBolum();
+    Bolum fullUpdate(int id,Bolum bolum);
+    Bolum partialUpdate(int id,Bolum bolum);
+    Bolum insertBolum(Bolum bolum);
+    Bolum deleteBolum(int id);
 }
