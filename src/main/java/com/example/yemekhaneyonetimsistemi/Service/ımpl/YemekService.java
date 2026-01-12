@@ -5,6 +5,7 @@ import com.example.yemekhaneyonetimsistemi.Service.IYemekService;
 import com.example.yemekhaneyonetimsistemi.entity.Yemek;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,13 +14,16 @@ public class YemekService implements IYemekService {
 
     @Autowired
     IYemekRepository iYemekRepository;
+
     @Override
+    @Transactional(readOnly = true)
     public List<Yemek> getAllYemek() {
         return iYemekRepository.getAll();
     }
 
 
     @Override
+    @Transactional
     public Yemek partialUpdate(int id,Yemek yemek) {
         var yemok = iYemekRepository.findById(id).orElseThrow(()-> new RuntimeException("yemek not found"));
 
@@ -40,6 +44,7 @@ public class YemekService implements IYemekService {
 
 
     @Override
+    @Transactional
     public Yemek fullUpdate(int id, Yemek yemek) {
         Yemek yemek1=iYemekRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("Yemek not found"));
@@ -53,11 +58,13 @@ public class YemekService implements IYemekService {
 
 
     @Override
+    @Transactional
     public Yemek insertYemek( Yemek yemek) {
         return iYemekRepository.save(yemek);
     }
 
     @Override
+    @Transactional
     public Yemek deleteYemek(int id) {
         var yemok=iYemekRepository.findById(id).orElse(null);
         if(yemok==null) {

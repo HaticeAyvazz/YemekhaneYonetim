@@ -23,8 +23,8 @@ public class Yemek {
     @Column(name = "ucret")
     private BigDecimal ucret;
 
-    @ManyToOne(fetch =FetchType.LAZY)
-    @JoinColumn(name = "kategori_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "kategori_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Kategori kategori;
 

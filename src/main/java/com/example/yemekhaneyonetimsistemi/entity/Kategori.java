@@ -1,6 +1,9 @@
 package com.example.yemekhaneyonetimsistemi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "kategori")
@@ -16,6 +19,10 @@ public class Kategori {
 
     @Column(name = "tip")
     private String tip;
+
+    @JsonIgnoreProperties("yemekler") // Veya @JsonIgnore
+    @OneToMany(mappedBy = "kategori", cascade = CascadeType.ALL)
+    private List<Yemek> yemekler;
 
     public int getKategoriId() {
         return kategoriId;
