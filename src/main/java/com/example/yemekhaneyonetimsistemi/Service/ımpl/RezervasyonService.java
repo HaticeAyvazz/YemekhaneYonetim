@@ -14,6 +14,7 @@ import com.example.yemekhaneyonetimsistemi.Service.IRezervasyonService;
 import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
 import com.example.yemekhaneyonetimsistemi.entity.Menu;
 import com.example.yemekhaneyonetimsistemi.entity.Rezervasyon;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -36,20 +37,35 @@ public class RezervasyonService implements IRezervasyonService {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public Rezervasyon partialUpdate(int id, Rezervasyon rezervasyon) {
-        var rezervasyon1 = rezervasyonRepository.findById(id).orElseThrow(()-> new RuntimeException("Rezervasyon not found"));
-        if(rezervasyon.getTarih()!=null){
-            rezervasyon1.setTarih(rezervasyon.getTarih());
-        }
-        if(rezervasyon.getKullanici()!=null){
-            rezervasyon1.setKullanici(rezervasyon.getKullanici());
-        }
-        if(rezervasyon.getMenu()!=null){
-            rezervasyon1.setMenu(rezervasyon.getMenu());
-        }
-        rezervasyon1.setOnayDurumu(false);
-        return rezervasyonRepository.save(rezervasyon1);
+        // 1. Veritabanındaki orijinal kaydı getir
+        var mevcutRez = rezervasyonRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rezervasyon bulunamadı: " + id));
 
+        // 2. Tarih güncellemesi
+        if (rezervasyon.getTarih() != null) {
+            mevcutRez.setTarih(rezervasyon.getTarih());
+        }
+
+        // 3. Menü değişimi (Gelen ID ile DB'den çekip bağlamak en güvenlisidir)
+        if (rezervasyon.getMenu() != null && rezervasyon.getMenu().getMenuId() != 0) {
+            Menu m = menuRepository.findById(rezervasyon.getMenu().getMenuId())
+                    .orElseThrow(() -> new RuntimeException("Menü bulunamadı"));
+            mevcutRez.setMenu(m);
+        }
+
+        // 4. Kullanıcı değişimi
+        if (rezervasyon.getKullanici() != null && rezervasyon.getKullanici().getId() != 0) {
+            Kullanici k = kullaniciRepository.findById(rezervasyon.getKullanici().getId())
+                    .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+            mevcutRez.setKullanici(k);
+        }
+
+        // İş mantığı kuralı
+        mevcutRez.setOnayDurumu(false);
+
+        return rezervasyonRepository.save(mevcutRez);
     }
 
 
@@ -66,21 +82,23 @@ public class RezervasyonService implements IRezervasyonService {
 
     public Rezervasyon insertRezervasyon(Rezervasyon rezervasyon) {
 
-        int transientKullanici = rezervasyon.getRezervasyonId();
+        if (rezervasyon.getKullanici() == null) {
+            throw new RuntimeException("Kullanıcı bilgisi boş olamaz!");
+        }
+        int kullaniciId = rezervasyon.getKullanici().getId();
 
-        Kullanici gercekKullanici = kullaniciRepository.findById(transientKullanici).orElse(null);
-
-
+        Kullanici gercekKullanici = kullaniciRepository.findById(kullaniciId)
+                .orElseThrow(() -> new RuntimeException("Veritabanında bu ID ile kullanıcı bulunamadı: " + kullaniciId));
 
         rezervasyon.setKullanici(gercekKullanici);
 
-
-        Menu transientMenu = rezervasyon.getMenu();
-        Menu gercekMenu = menuRepository.findById(transientMenu.getMenuId()).orElse(null);
+        if (rezervasyon.getMenu() != null) {
+            Menu gercekMenu = menuRepository.findById(rezervasyon.getMenu().getMenuId())
+                    .orElseThrow(() -> new RuntimeException("Menü bulunamadı"));
+            rezervasyon.setMenu(gercekMenu);
+        }
 
         rezervasyon.setOnayDurumu(false);
-        rezervasyon.setMenu(gercekMenu);
-
         return rezervasyonRepository.save(rezervasyon);
     }
 

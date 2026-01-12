@@ -39,23 +39,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf-> csrf.disable()) // Postman testleri için kapalı
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/me").permitAll() // Kayıt ve Login serbest
+                        .requestMatchers("/auth/register", "/auth/me").permitAll()
                         .requestMatchers("/rest/api/kullanici/**").permitAll()
-                        .requestMatchers("rest/api/kategori/**").permitAll()
-                        .requestMatchers("rest/api/rezervasyon/**").permitAll()
+                        // BAŞINA / EKLEDİĞİMİZ YERLER:
+                        .requestMatchers("/rest/api/kategori/**").permitAll()
+                        .requestMatchers("/rest/api/rezervasyon/**").permitAll()
+                        .requestMatchers("/rest/api/fakulte/**").permitAll()
+                        .requestMatchers("/rest/api/menu/**").permitAll()
+                        .requestMatchers("/rest/api/bolum/**").hasRole("OGRENCI")
+                        .requestMatchers("/rest/api/departman/**").permitAll()
+                        .requestMatchers("/rest/api/yemek/**").permitAll()
+                        // --------------------------
                         .requestMatchers("/rest/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("rest/api/fakulte/**").permitAll()
-                        .requestMatchers("rest/api/menu/**").permitAll()
-                        .requestMatchers("rest/api/bolum/**").hasRole("OGRENCI")
-                        .requestMatchers("rest/api/departman/**").permitAll()
                         .requestMatchers("/rest/api/ogrenci/**").permitAll()
                         .requestMatchers("/rest/api/personel/**").hasAnyRole("ADMIN", "PERSONEL")
-                        .requestMatchers("rest/api/yemek/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults()); // Basic Auth (Postman için ideal)
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
