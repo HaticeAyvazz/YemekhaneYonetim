@@ -10,4 +10,5 @@ public interface IKullaniciController {
     public Kullanici updateKullanici(int id,Kullanici kullanici);
     public Kullanici insertKullanici(KullaniciKayitDTO kullaniciKayitDTO);
     public Kullanici deleteKullanici(int id);
+    public Kullanici fullUpdate(int id, Kullanici kullanici);
 }

@@ -5,10 +5,7 @@ import com.example.yemekhaneyonetimsistemi.Repository.IBolumRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IDepartmanRepository;
 import com.example.yemekhaneyonetimsistemi.Repository.IKullaniciRepository;
 import com.example.yemekhaneyonetimsistemi.Service.IKullaniciService;
-import com.example.yemekhaneyonetimsistemi.entity.Bolum;
-import com.example.yemekhaneyonetimsistemi.entity.Departman;
-import com.example.yemekhaneyonetimsistemi.entity.Kullanici;
-import com.example.yemekhaneyonetimsistemi.entity.Role;
+import com.example.yemekhaneyonetimsistemi.entity.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.core.support.RepositoryMethodInvocationListener;
@@ -186,7 +183,25 @@ public class KullaniciService implements IKullaniciService {
         return kullaniciRepository.save(mevcutKullanici);
     }
 
+    @Override
+    @org.springframework.transaction.annotation.Transactional
+    public Kullanici fullUpdate(int id, Kullanici kullanici) {
+        Kullanici kullanici1 = kullaniciRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı: " + id));
 
+
+        kullanici1.setKullaniciAdi(kullanici.getKullaniciAdi());
+        kullanici1.setEmail(kullanici.getEmail());
+        kullanici1.setKullaniciNo(kullanici.getKullaniciNo());
+        kullanici1.setRol(kullanici.getRol());
+        kullanici1.setSifre(kullanici.getSifre());
+        kullanici1.setTelefonNo(kullanici.getTelefonNo());
+
+        kullanici1.setBolum(kullanici.getBolum());
+        kullanici1.setDepartman(kullanici.getDepartman());
+
+        return kullaniciRepository.save(kullanici1);
+    }
     @Override
     public Kullanici deleteKullanici(int id) {
         var kullanici=kullaniciRepository.findById(id)

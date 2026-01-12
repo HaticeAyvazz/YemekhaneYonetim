@@ -24,6 +24,11 @@ public class KullaniciController implements IKullaniciController
     public Kullanici updateKullanici(@PathVariable(name = "id") int id,@RequestBody Kullanici kullanici) {
         return kullaniciService.updateKullanici(id,kullanici);
     }
+    @PutMapping("/put/{id}")
+    public Kullanici fullUpdate(@PathVariable int id, @RequestBody Kullanici kullanici) {
+        Kullanici result = kullaniciService.fullUpdate(id, kullanici);
+        return result;
+    }
     @PostMapping("/save")
     @Override
     public Kullanici insertKullanici(@RequestBody KullaniciKayitDTO kullaniciKayitDTO) {

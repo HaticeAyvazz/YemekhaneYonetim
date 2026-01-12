@@ -2,6 +2,7 @@ package com.example.yemekhaneyonetimsistemi.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -39,25 +40,33 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf-> csrf.disable()) // Postman testleri için kapalı
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/me").permitAll()
-                        .requestMatchers("/rest/api/kullanici/**").permitAll()
-                        // BAŞINA / EKLEDİĞİMİZ YERLER:
-                        .requestMatchers("/rest/api/kategori/**").permitAll()
-                        .requestMatchers("/rest/api/rezervasyon/**").permitAll()
-                        .requestMatchers("/rest/api/fakulte/**").permitAll()
-                        .requestMatchers("/rest/api/menu/**").permitAll()
-                        .requestMatchers("/rest/api/bolum/**").hasRole("OGRENCI")
-                        .requestMatchers("/rest/api/departman/**").permitAll()
-                        .requestMatchers("/rest/api/yemek/**").permitAll()
-                        // --------------------------
-                        .requestMatchers("/rest/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/rest/api/ogrenci/**").permitAll()
-                        .requestMatchers("/rest/api/personel/**").hasAnyRole("ADMIN", "PERSONEL")
+                        //Kayıt ekranı gerekenler
+                        .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/rest/api/bolum/getAll","/rest/api/departman/getAll","/rest/api/fakulte/getAll").permitAll()
+
+                        //Giriş işlemi
+                        .requestMatchers(HttpMethod.GET,"/auth/me").authenticated()
+
+                        //Admin Görevleri
+                        .requestMatchers("/rest/api/bolum/**","/rest/api/departman/**","/rest/api/fakulte/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/rest/api/rezervasyon/putUpdate/{id}").hasRole("ADMIN")
+                        .requestMatchers("/rest/api/kullanici/**").hasRole("ADMIN")
+
+                        //Ortak Erişim
+                        .requestMatchers(HttpMethod.GET,"/rest/api/yemek/get","/rest/api/menu/list","/rest/api/kategori/getAll").hasAnyRole("ADMIN", "OGRENCI", "PERSONEL")
+                        .requestMatchers(HttpMethod.POST,"/rest/api/rezervasyon/save").hasAnyRole("ADMIN", "OGRENCI","PERSONEL")
+                        .requestMatchers(HttpMethod.PATCH,"/rest/api/rezervasyon/patchUpdate/{id}").hasAnyRole("ADMIN", "OGRENCI","PERSONEL")
+                        .requestMatchers(HttpMethod.DELETE,"/rest/api/rezervasyon/delete/{id}").hasAnyRole("ADMIN", "OGRENCI","PERSONEL")
+                        .requestMatchers(HttpMethod.GET, "/rest/api/kategori/getAll").hasAnyRole("ADMIN", "PERSONEL", "OGRENCI")
+
+                        //Admin ve Personel
+                        .requestMatchers("/rest/api/yemek/**","/rest/api/menu/**","/rest/api/kategori/**").hasAnyRole("ADMIN", "PERSONEL")
+
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(Customizer.withDefaults()); // Basic Auth (Postman için ideal)
 
         return http.build();
     }
