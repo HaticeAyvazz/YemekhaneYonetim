@@ -67,25 +67,33 @@ public class RezervasyonService implements IRezervasyonService {
         return rezervasyonRepository.save(rezervasyon1);
     }
 
+
+    @Override
+    @Transactional // Bu notasyonu eklemeyi unutma!
     public Rezervasyon insertRezervasyon(Rezervasyon rezervasyon) {
+        // 1. Kullanıcıyı, rezervasyon nesnesinin içindeki kullanıcı nesnesinin ID'si ile bul
+        if (rezervasyon.getKullanici() == null) {
+            throw new RuntimeException("Kullanıcı bilgisi eksik!");
+        }
+        Kullanici gercekKullanici = kullaniciRepository.findById(rezervasyon.getKullanici().getId())
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
 
-        int transientKullanici = rezervasyon.getRezervasyonId();
+        // 2. Menüyü bul
+        if (rezervasyon.getMenu() == null) {
+            throw new RuntimeException("Menü bilgisi eksik!");
+        }
+        Menu gercekMenu = menuRepository.findById(rezervasyon.getMenu().getMenuId())
+                .orElseThrow(() -> new RuntimeException("Menü bulunamadı"));
 
-        Kullanici gercekKullanici = kullaniciRepository.findById(transientKullanici).orElse(null);
-
-
-
+        // 3. İlişkileri set et
         rezervasyon.setKullanici(gercekKullanici);
-
-
-        Menu transientMenu = rezervasyon.getMenu();
-        Menu gercekMenu = menuRepository.findById(transientMenu.getMenuId()).orElse(null);
-
-        rezervasyon.setOnayDurumu(false);
         rezervasyon.setMenu(gercekMenu);
+        rezervasyon.setOnayDurumu(false);
 
         return rezervasyonRepository.save(rezervasyon);
     }
+
+
 
     @Override
     @Transactional

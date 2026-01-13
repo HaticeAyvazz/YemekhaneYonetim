@@ -1,13 +1,17 @@
 package edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "yemek")
 public class Yemek {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,10 @@ public class Yemek {
     @JoinColumn(name = "kategori_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Kategori kategori;
+
+    @ManyToMany(mappedBy = "yemekler")
+    @JsonIgnore
+    private List<Menu> menuler;
 
     public int getYemekId() {
         return yemekId;
@@ -66,5 +74,13 @@ public class Yemek {
 
     public void setKategori(Kategori kategori) {
         this.kategori = kategori;
+    }
+
+    public List<Menu> getMenuler() {
+        return menuler;
+    }
+
+    public void setMenuler(List<Menu> menuler) {
+        this.menuler = menuler;
     }
 }

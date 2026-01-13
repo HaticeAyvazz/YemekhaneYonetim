@@ -1,6 +1,9 @@
 package edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "menu")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Menu {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +38,11 @@ public class Menu {
             inverseJoinColumns = @JoinColumn(name = "yemek_id") // Yemek tablosu tarafındaki sütun
     )
     private List<Yemek> yemekler=new ArrayList<>();
+
+    @OneToMany(mappedBy = "menu")
+    @JsonIgnore
+    private List<Rezervasyon> rezervasyonlar;
+
 
     public int getMenuId() {
         return menuId;

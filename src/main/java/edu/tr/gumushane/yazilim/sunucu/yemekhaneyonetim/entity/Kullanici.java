@@ -2,7 +2,10 @@
 
 package edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "kullanici")
@@ -10,6 +13,7 @@ public class Kullanici {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "kullaniciid")
     private int id;
 
     @Column(name = "kullaniciad", unique = true, nullable = false)
@@ -45,6 +49,9 @@ public class Kullanici {
     @JoinColumn(name = "departman_id") // Default olarak nullable=true
     private Departman departman;
 
+    @OneToMany(mappedBy = "kullanici")
+    @JsonIgnore
+    private List<Rezervasyon> rezervasyonlar;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -72,4 +79,12 @@ public class Kullanici {
 
     public Departman getDepartman() { return departman; }
     public void setDepartman(Departman departman) { this.departman = departman; }
+
+    public List<Rezervasyon> getRezervasyonlar() {
+        return rezervasyonlar;
+    }
+
+    public void setRezervasyonlar(List<Rezervasyon> rezervasyonlar) {
+        this.rezervasyonlar = rezervasyonlar;
+    }
 }

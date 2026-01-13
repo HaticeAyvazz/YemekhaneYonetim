@@ -1,5 +1,6 @@
 package edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,12 +20,15 @@ public class Rezervasyon {
     @Column(name = "onaydurumu")
     private boolean onayDurumu;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id",nullable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Menu menu;
 
-    @ManyToOne
-    @JoinColumn(name = "kullaniciid",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kullaniciid")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Kullanici kullanici;
 
     public int getRezervasyonId() {

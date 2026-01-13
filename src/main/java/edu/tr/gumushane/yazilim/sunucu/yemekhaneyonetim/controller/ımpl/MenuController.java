@@ -55,14 +55,14 @@ public class MenuController implements IMenuController {
 
     @PutMapping("/putUpdate/{id}")
     @Override
-    public Menu putUpdate(@PathVariable Integer menuId,@RequestBody Menu menu) {
-        return menuService.updateFullMenu(menuId,menu);
+    public Menu putUpdate(@PathVariable(name = "id") int id,@RequestBody Menu menu) {
+        return menuService.updateFullMenu(id,menu);
     }
 
     @PatchMapping("/patchUpdate/{id}")
     @Override
-    public Menu patchUpdate(Integer menuId, List<Integer> yemekIdsList) {
-        return menuService.updateMenu(menuId,yemekIdsList);
+    public Menu patchUpdate(@PathVariable(name = "id") int id,@RequestBody List<Integer> yemekIdsList) {
+        return menuService.updateMenu(id,yemekIdsList);
     }
 
 }

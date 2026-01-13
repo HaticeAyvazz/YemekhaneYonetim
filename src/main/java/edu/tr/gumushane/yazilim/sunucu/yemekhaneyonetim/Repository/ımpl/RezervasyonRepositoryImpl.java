@@ -1,6 +1,7 @@
 package edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.Repository.ımpl;
 
 import edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.Repository.IRezervasyonRepository;
+import edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity.Menu;
 import edu.tr.gumushane.yazilim.sunucu.yemekhaneyonetim.entity.Rezervasyon;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,4 +40,15 @@ public class RezervasyonRepositoryImpl implements IRezervasyonRepository {
             entityManager.remove(rezervasyon);
         }
     }
-}
+
+    @Override
+    public List<Rezervasyon> findByMenu(Menu menu) {
+        return entityManager.createQuery(
+                        "SELECT r FROM Rezervasyon r WHERE r.menu = :menu", Rezervasyon.class)
+                .setParameter("menu", menu)
+                .getResultList();
+    }
+
+
+    }
+

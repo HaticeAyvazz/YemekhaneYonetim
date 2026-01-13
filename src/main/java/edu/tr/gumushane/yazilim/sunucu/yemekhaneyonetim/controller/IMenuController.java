@@ -16,8 +16,8 @@ public interface IMenuController {
 
     ResponseEntity<Menu>deleteFoodFromMenu(Integer menuId, List<Integer> yemekIds);
 
-    Menu putUpdate(Integer menuId,Menu menu);
-    Menu patchUpdate(Integer menuId,List<Integer> yemekIdsList);
+    Menu putUpdate(int id,Menu menu);
+    Menu patchUpdate(int id,List<Integer> yemekIdsList);
 
 
 

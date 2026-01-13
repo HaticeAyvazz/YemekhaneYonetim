@@ -27,7 +27,7 @@ public class RezervasyonController implements IRezervasyonController {
 
     @PutMapping("/putUpdate/{id}")
     @Override
-    public Rezervasyon putUpdate(@PathVariable int id, @RequestBody Rezervasyon rezervasyon) {
+    public Rezervasyon putUpdate(@PathVariable(name = "id") int id, @RequestBody Rezervasyon rezervasyon) {
         return iRezervasyonService.fullUpdate(id,rezervasyon);
     }
 
